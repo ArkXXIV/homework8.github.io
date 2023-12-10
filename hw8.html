@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="CIS 114 Assignments - Homework 8">
+    <title>Homework 8</title>
+    <style>
+        body {
+            background-color: #D8BFD8;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        .back-link {
+            font-size: 13px;
+            display: inline-block;
+            background-color: #696969;
+            color: white;
+            text-decoration: none;
+            padding: 10px 38.5px 10px 38.5px;
+            position: absolute;
+            top: 107.10px;
+            border-radius: 0px 15px 0px 0px;
+            border-style: solid solid solid solid;
+            border-width: 1px;
+            border-color: black;
+        }
+        .back-link:hover {
+            background-color: #A9A9A9;
+        }
+        .navigation {
+            display: inline-block;
+            color: black;
+            text-decoration: none;
+            padding: 4.5px 40px;
+        }
+        h3 {
+            background-color: white;
+            text-align: center;
+            margin: 0px;
+            padding: 1px +0px;
+            text-decoration: none;
+            font-size: 14px;
+            border-style: solid;
+            border-width: 1px;
+        }
+        p {
+            margin: 10px 20px;
+        }
+        .p {
+            color: black;
+            text-decoration: none;
+        }
+        .app {
+            width: 500px;
+            margin: 20px 50px;
+            padding: 20px 20px;
+            background-color: #696969;
+            color: white;
+            border-style: dotted;
+            border-color: black;
+        }
+        .text_area {
+            margin: 20px 50px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Homework 8 - AJAX Applications</h1>
+    </header>
+    <h3>
+        <p class = "navigation"></p>
+    </h3>
+    <a class = "back-link" href = "https://ArkXXIV.github.io/hw1.html">Back Page</a>
+    <br>
+    <p>Welcome to Homework 8!</p>
+
+    <div class = "app">
+        <button type="button" onclick="loadDoc()">Get CD collection</button>
+        <br><br>
+        <table id="demo"></table>
+    </div>
+
+    <div class = "text_area">
+        <h2>Explanation of AJAX</h2>
+        <p>
+            The JavaScript code uses AJAX (Asynchronous JavaScript and XML) 
+            to fetch data from an XML file without reloading the entire page. 
+            Let's break down the key components of the code:
+        </p>
+        <ul>
+            <li><strong>XMLHttpRequest:</strong> An object that performs asynchronous requests to a server.</li>
+            <li><strong>loadDoc function:</strong> Initiates an AJAX request to the "cd_catalog.xml" file when the button is clicked.</li>
+            <li><strong>xhttp.onload:</strong> Event handler called when the request is completed. It invokes the myFunction to process the XML response.</li>
+            <li><strong>myFunction function:</strong> Extracts data from the XML response and generates an HTML table dynamically.</li>
+        </ul>
+        <p>
+            The overall flow involves making an asynchronous request, handling the response, and updating the page dynamically.
+        </p>
+        <br>
+        <h2>REST API</h2>
+        <p>
+            The Spotify Web API typically returns responses in JSON
+            (JacaScricpt Object Notation) format, making it easy for
+            developers to parse and work with the data in their applications
+            In order to access and use the API, developers are required
+            to authenticate their request using an access token. This
+            involves registering their applications on the Spotify developer
+            Dashboard to obtain client credentials (client ID and client 
+            secret) and then using these credentials to request an access 
+            token, which is included in the "Authorization" header of API 
+            requests. The access token grants the nececssary permissions to
+            interact with various Spotiy API endpoints. As for fees, Spotify 
+            provides a free tier for limited access to the API suitable for 
+            small-scale projects. However, for larger-scale and commercial 
+            use, companies may need to explore Spotify's commercial 
+            partnerships and licennsing options, which may involve associated 
+            costs based on the nature and scale of usage. Companies should
+            refer to Spotify's official documentation and contact Spotify for 
+            detailed information on commercial usage fees and licensing 
+            arrangements.
+            <br> <br>
+            So basically, this is really good for your starting company for the
+            the reason that you will be able  to integrate music-related 
+            features and data into your applications. This API will provides access 
+            to a wide range of music-related information, including tracks, 
+            albums, artists, playlists, and more, allowing your company to create 
+            engaging and personalized music experience for your users
+            <br><br>
+            For more information: <a href = "https://developer.spotify.com/documentation/web-api" target = "_blank">SPOTIFY Web API</a>
+        </p>
+    </div>
+
+    <script>
+        function loadDoc() {
+          // Create a new XMLHttpRequest object
+          const xhttp = new XMLHttpRequest();
+    
+          // Set up the onload event handler
+          xhttp.onload = function () {
+            // Call the function to handle the XML response
+            myFunction(this);
+          }
+    
+          // Specify the type of request and the URL
+          xhttp.open("GET", "cd_catalog.xml");
+    
+          // Send the request
+          xhttp.send();
+        }
+    
+        function myFunction(xml) {
+          // Get the XML document from the response
+          const xmlDoc = xml.responseXML;
+    
+          // Get all CD elements from the XML
+          const x = xmlDoc.getElementsByTagName("CD");
+    
+          // Create an HTML table with headers for Artist and Title
+          let table = "<tr><th>Artist</th><th>Title</th></tr>";
+    
+          // Loop through each CD element and extract Artist and Title information
+          for (let i = 0; i < x.length; i++) {
+            table += "<tr><td>" +
+              x[i].getElementsByTagName("ARTIST")[0].textContent +
+              "</td><td>" +
+              x[i].getElementsByTagName("TITLE")[0].textContent +
+              "</td></tr>";
+          }
+    
+          // Display the table in the HTML element with id "demo"
+          document.getElementById("demo").innerHTML = table;
+        }
+      </script>
+
+    <a class = "back-link" href = "https://ArkXXIV.github.io/hw1.html">Back Page</a>
+    
+</body>
+</html>
